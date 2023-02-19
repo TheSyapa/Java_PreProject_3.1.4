@@ -11,8 +11,15 @@
 <div class="container-fluid bg-dark m-0 p-0">
     <div class="row m-0 p-2 ">
         <div class="col-11">
+            <th:block class="text-white h5"
+                th:text="${user.getUsername()}">
+            </th:block>
+            <th:block class="font-weight-light"
+                th:text="', with roles: '+ ${user.getRoles()}">
+            </th:block>
             <span class="text-white h5">
                 user@mail.ru
+
                 <span class="font-weight-light">
                     with roles: USER
                 </span>
