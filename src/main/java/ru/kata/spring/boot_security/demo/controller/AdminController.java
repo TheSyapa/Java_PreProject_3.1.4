@@ -8,6 +8,8 @@ import ru.kata.spring.boot_security.demo.model.User;
 import ru.kata.spring.boot_security.demo.service.RoleService;
 import ru.kata.spring.boot_security.demo.service.UserService;
 
+import java.security.Principal;
+
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
@@ -19,11 +21,11 @@ public class AdminController {
         this.userService = userService;
         this.roleService = roleService;
     }
-
-    @GetMapping("")
-    public String ShowAllUsers(Model model) {
+    @GetMapping(value = "")
+    public String showAdminPage(Model model, Principal principal) {
+        model.addAttribute("user", userService.findByUsername(principal.getName()));
         model.addAttribute("users", userService.findAll());
-        return "user-list";
+        return "admin-panel";
     }
 
     @GetMapping("/user-create")
@@ -55,7 +57,7 @@ public class AdminController {
     @DeleteMapping("/user-delete/{id}")
     public String deleteUser(@PathVariable("id") Long id) {
         userService.deleteById(id);
-        return "redirect:/admin";
+        return "redirect:/admin-panel";
     }
 
 }

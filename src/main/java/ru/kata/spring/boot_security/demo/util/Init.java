@@ -9,7 +9,6 @@ import ru.kata.spring.boot_security.demo.service.UserService;
 
 import javax.annotation.PostConstruct;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Component
@@ -35,8 +34,8 @@ public class Init {
         userRole.add(roleService.findById(2L));
         allRoles.add(roleService.findById(1L));
         allRoles.add(roleService.findById(2L));
-        userService.save(new User("Misha", "Adminov", "admin","admin", adminRole));
-        userService.save(new User("Serega", "Userov", "user","user", userRole));
-        userService.save(new User("Vitya", "VseRolev", "text","test", allRoles));
+        userService.save(new User("Misha", "Adminov", 10, "Admin@mail.ru", "admin","admin", adminRole));
+        userService.save(new User("Serega", "Userov", 20, "User@mail.ru", "user","user", userRole));
+        userService.save(new User("Vitya", "VseRolev", 30, "Test@mail.ru", "test","test", allRoles));
     }
 }

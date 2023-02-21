@@ -49,7 +49,10 @@ public class Role implements GrantedAuthority {
     //todo equals and hashcode maybe !?
 
     // Методы интерфейса
-
+    @Override
+    public String toString() {
+        return getName();
+    }
     @Override
     public String getAuthority() {
         return name;

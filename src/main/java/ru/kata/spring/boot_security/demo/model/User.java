@@ -3,6 +3,7 @@ package ru.kata.spring.boot_security.demo.model;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
@@ -21,6 +22,11 @@ public class User implements UserDetails {
     @Column(name = "last_name")
     @Size(min = 2, message = "min 2 symbols")
     private String lastName;
+    @Column(name = "age")
+    private int age;
+    @Column(name = "email")
+    @Size(min = 2, message = "min 2 symbols")
+    private String email;
     @Column(name = "username")
     @Size(min = 2, message = "min 2 symbols")
     private String username;
@@ -37,9 +43,11 @@ public class User implements UserDetails {
     public User() {
     }
 
-    public User(String firstName, String lastName, String username, String password, Collection<Role> roles) {
+    public User(String firstName, String lastName, int age, String email, String username, String password, Collection<Role> roles) {
         this.firstName = firstName;
         this.lastName = lastName;
+        this.age = age;
+        this.email = email;
         this.username = username;
         this.password = password;
         this.roles = roles;
@@ -87,6 +95,7 @@ public class User implements UserDetails {
         this.password = password;
     }
 
+    @Transactional
     public Collection<Role> getRoles() {
         return roles;
     }
@@ -124,4 +133,19 @@ public class User implements UserDetails {
     }
 
 
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 }
