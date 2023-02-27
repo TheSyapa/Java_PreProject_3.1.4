@@ -13,7 +13,7 @@ import java.security.Principal;
 @Controller
 @RequestMapping("/user")
 public class UserController {
-
+    
     private final UserService userService;
 
     @Autowired
@@ -23,8 +23,8 @@ public class UserController {
 
     @GetMapping(value = "")
     public String showUserPage(Model model, Principal principal) {
-        model.addAttribute("user", userService.findByUsername(principal.getName()));
-        return "a-user-panel";
+        model.addAttribute("user", userService.findByEmail(principal.getName()));
+        return "user-panel";
     }
 
 }

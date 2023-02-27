@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.util.Collection;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -27,9 +28,6 @@ public class User implements UserDetails {
     @Column(name = "email")
     @Size(min = 2, message = "min 2 symbols")
     private String email;
-    @Column(name = "username")
-    @Size(min = 2, message = "min 2 symbols")
-    private String username;
     @Column(name = "password")
     @Size(min = 2, message = "min 2 symbols")
     private String password;
@@ -38,17 +36,16 @@ public class User implements UserDetails {
     @JoinTable(name = "users_roles",
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
-    private Collection<Role> roles;
+    private Set<Role> roles;
 
     public User() {
     }
 
-    public User(String firstName, String lastName, int age, String email, String username, String password, Collection<Role> roles) {
+    public User(String firstName, String lastName, int age, String email,  String password, Set<Role> roles) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.age = age;
         this.email = email;
-        this.username = username;
         this.password = password;
         this.roles = roles;
     }
@@ -79,13 +76,8 @@ public class User implements UserDetails {
 
     @Override
     public String getUsername() {
-        return username;
+        return email;
     }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
     @Override
     public String getPassword() {
         return password;
@@ -100,11 +92,9 @@ public class User implements UserDetails {
         return roles;
     }
 
-    public void setRoles(Collection<Role> roles) {
+    public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
-
-    //todo equals and hashcode maybe !?
 
     // Методы интерфейса
     @Override

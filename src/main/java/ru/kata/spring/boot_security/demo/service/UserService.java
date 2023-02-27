@@ -12,10 +12,13 @@ public interface UserService extends UserDetailsService {
 
     void save(User user);
 
+    void update(Long id, User user);
+
     void deleteById(Long id);
 
     User findById(Long id);
-    User findByUsername(String username);
+
+    User findByEmail(String Email);
 
     UserDetails loadUserByUsername(String username);
 }

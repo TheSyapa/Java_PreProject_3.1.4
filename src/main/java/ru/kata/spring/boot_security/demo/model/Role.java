@@ -8,11 +8,14 @@ import java.util.Set;
 @Entity
 @Table(name = "roles")
 public class Role implements GrantedAuthority {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @Column(name = "role")
     private String name;
+
     @ManyToMany(mappedBy = "roles")
     private Set<User> userSet;
 
@@ -46,13 +49,13 @@ public class Role implements GrantedAuthority {
     public void setUserSet(Set<User> userSet) {
         this.userSet = userSet;
     }
-    //todo equals and hashcode maybe !?
 
     // Методы интерфейса
     @Override
     public String toString() {
-        return getName();
+        return getName().substring(getName().indexOf('_') + 1);
     }
+
     @Override
     public String getAuthority() {
         return name;

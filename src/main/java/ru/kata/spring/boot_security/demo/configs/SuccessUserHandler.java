@@ -20,10 +20,6 @@ public class SuccessUserHandler implements AuthenticationSuccessHandler {
             httpServletResponse.sendRedirect("/admin");
         } else {
             httpServletResponse.sendRedirect("/user");
-        } /*else {
-            httpServletResponse.sendRedirect("/");
-        }*/
+        }
     }
-
-
 }

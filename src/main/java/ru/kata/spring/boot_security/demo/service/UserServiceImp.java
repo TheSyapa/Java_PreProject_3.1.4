@@ -36,6 +36,12 @@ public class UserServiceImp implements UserService, UserDetailsService {
         userDao.save(user);
     }
 
+    @Transactional
+    public void update(Long id, User user) {
+        user.setId(id);
+        userDao.save(user);
+    }
+
     public void deleteById(Long id) {
         userDao.deleteById(id);
     }
@@ -44,17 +50,17 @@ public class UserServiceImp implements UserService, UserDetailsService {
         return userDao.getOne(id);
     }
 
-    public User findByUsername(String username) {
-        return userDao.findByUsername(username);
+    public User findByEmail(String email) {
+        return userDao.findByEmail(email);
     }
 
     @Override
     @Transactional
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userDao.findByUsername(username);
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        User user = userDao.findByEmail(email);
         if (user == null) {
-            throw new UsernameNotFoundException(String.format("User '%s' not found", username));
+            throw new UsernameNotFoundException(String.format("User '%s' not found", email));
         }
-        return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), user.getAuthorities());
+        return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), user.getAuthorities());
     }
 }
